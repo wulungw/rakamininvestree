@@ -11,24 +11,23 @@ class LoginController extends Controller
 
   public function login()
   {
-    return view('login');
+    return view('/');
   }
 
   public function authenticate(Request $request)
-  {
-
+  {;
     $credentials = $request->validate([
       'email' => 'required',
       'password' => 'required',
     ]);
+    
     if (Auth::attempt($credentials)) {
       $request->session()->regenerate();
-
       switch (auth::user()->name) {
-        case 'Front Office':
-          return redirect()->intended('/homefo');
+        case 'admin':
+          return redirect()->intended('/home');
           break;
-        case 'Admin':
+        case 'Admin2':
           return redirect()->intended('/homeadmin');
           break;
         default:
@@ -37,14 +36,13 @@ class LoginController extends Controller
       }
     }
 
-
-    return redirect('login')->with('error', 'Oppes! You have entered invalid credentials');
+    return redirect('/')->with('error', 'Email / Password salah!');
   }
 
   public function logout()
   {
     Auth::logout();
 
-    return redirect('/login');
+    return redirect('/');
   }
 }

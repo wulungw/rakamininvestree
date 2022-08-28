@@ -1,6 +1,9 @@
 @extends('welcome')
 @section('content')
 
-Home
+<div>
+   <b>Judul</b>  <br>
+    Isi
+</div>
 
 @endsection
